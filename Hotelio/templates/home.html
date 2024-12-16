@@ -1,0 +1,8 @@
+<h1>Lista Hoteli</h1>
+<ul>
+    {% for hotel in hotels %}
+    <li>
+        <a href="{% url 'hotel-details' hotel.pk %}">{{ hotel.name }}</a> - {{ hotel.location }} - ${{ hotel.price_per_night }}
+    </li>
+    {% endfor %}
+</ul>
