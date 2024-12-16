@@ -1,0 +1,21 @@
+<h1>{{ hotel.name }}</h1>
+<p>{{ hotel.description }}</p>
+<p>Cena: ${{ hotel.price_per_night }}</p>
+
+<h2>Opinie</h2>
+<ul>
+    {% for review in reviews %}
+    <li>{{ review.user.username }}: {{ review.rating }} - {{ review.comment }}</li>
+    {% endfor %}
+</ul>
+
+{% if user.is_authenticated %}
+    <h3>Dodaj opinię</h3>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Dodaj opinię</button>
+    </form>
+{% else %}
+    <p><a href="{% url 'login' %}">Zaloguj się, aby dodać opinię.</a></p>
+{% endif %}
