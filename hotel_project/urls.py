@@ -19,6 +19,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('account/', include('Account.urls')),
+    path('images/', include('images.urls', namespace='images')),
     path('', include('Hotelio.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
 ]
