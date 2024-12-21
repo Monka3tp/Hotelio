@@ -1,34 +1,31 @@
-from django.contrib.auth.models import User
 from django.db import models
+from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404, render
+
 
 class Hotel(models.Model):
-    name = models.CharField(max_length=100)
-    location = models.CharField(max_length=100)
+    name = models.CharField(max_length=255)
     description = models.TextField()
-    price_per_night = models.DecimalField(max_digits=10, decimal_places=2)
-    rooms_available = models.IntegerField()
-    image = models.ImageField(upload_to='hotel_images/', null=True, blank=True)
+    price_per_night = models.DecimalField(max_digits=8, decimal_places=2)
+    image = models.ImageField(upload_to='hotel_images/', default='hotel_images/hotelrelax.jpeg')
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    amenities = models.TextField(default="brak udogodnień")
+    rating = models.FloatField(default=0.0)
+    address = models.CharField(max_length=255, null=True, blank=True)
+    map_url = models.URLField(blank=True, null=True)
 
     def __str__(self):
         return self.name
 
 class Reservation(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
     hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
-    start_date = models.DateField()
-    end_date = models.DateField()
-    guests = models.IntegerField()
-    status = models.CharField(max_length=20, default='Active')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    check_in = models.DateField()
+    check_out = models.DateField()
+    guests = models.PositiveIntegerField()
+    review_text = models.TextField(blank=True, null=True)
+    rating = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.user.username} - {self.hotel.name} ({self.start_date} to {self.end_date})"
+        return f"{self.user.username} - {self.hotel.name}"
 
-
-class Review(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
-    rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
-    comment = models.TextField()
-
-    def __str__(self):
-        return f"{self.user.username} - {self.hotel.name} ({self.rating})"
