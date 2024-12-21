@@ -1,6 +1,6 @@
 from django import forms
 
-from Hotelio.models import Reservation, Review
+from Hotelio.models import Reservation
 
 
 class ReservationForm(forms.ModelForm):
@@ -8,7 +8,3 @@ class ReservationForm(forms.ModelForm):
         model = Reservation
         fields = ['hotel', 'start_date', 'end_date', 'guests']
 
-class ReviewForm(forms.ModelForm):
-    class Meta:
-        model = Review
-        fields = ['rating', 'comment']
