@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Rezerwacja hotelu: {{ hotel.name }}</h2>
+<form method="POST">
+    {% csrf_token %}
+    <label for="check_in">Data zameldowania:</label>
+    <input type="date" name="check_in" required><br>
+    <label for="check_out">Data wymeldowania:</label>
+    <input type="date" name="check_out" required><br>
+    <label for="guests">Liczba gości:</label>
+    <input type="number" name="guests" min="1" required><br>
+    <button type="submit" class="btn btn-success">Zarezerwuj</button>
+</form>
+{% endblock %}

@@ -1,4 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
+
+from .forms import ReviewForm
 from .models import Hotel, Reservation
 from django.contrib.auth.decorators import login_required
 
@@ -21,6 +23,26 @@ def reserve_hotel(request, hotel_id):
         return redirect('hotel_list')
     return render(request, 'hotels/reservation_from.html', {'hotel': hotel})
 
-def hotel_detail(request, pk):
-    hotel = get_object_or_404(Hotel, pk=pk)
-    return render(request, 'hotels/hotel_detail.html', {'hotel': hotel})
+@login_required
+def my_reservations(request):
+    reservations = Reservation.objects.filter(user=request.user)
+    if request.method == "POST":
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            reservation_id = form.cleaned_data['reservation_id']
+            review_text = form.cleaned_data['review_text']
+            rating = form.cleaned_data['rating']
+
+            reservation = Reservation.objects.get(id=reservation_id, user=request.user)
+            reservation.review_text = review_text
+            reservation.rating = rating
+            reservation.save()
+            return redirect('my_reservations')
+    else:
+        form = ReviewForm()
+
+    context = {
+        'reservations': reservations,
+        'form': form,
+    }
+    return render(request, 'hotels/my_reservations.html', context)

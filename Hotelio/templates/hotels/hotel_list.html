@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Lista Hoteli</h1>
+<div>
+    {% for hotel in hotels %}
+    <div>
+        <img src="{{ hotel.image.url }}" alt="{{ hotel.name }}">
+        <h3>{{ hotel.name }}</h3>
+        <p>{{ hotel.description }}</p>
+        <p>Cena: {{ hotel.price_per_night }} zł/doba</p>
+        <a href="{% url 'reserve_hotel' hotel.id %}">Zarezerwuj</a>
+        <hr>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
