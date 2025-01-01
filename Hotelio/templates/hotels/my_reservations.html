@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Moje rezerwacje</h1>
+
+<div>
+    {% for reservation in reservations %}
+    <div>
+        <h3>{{ reservation.hotel_name }}</h3>
+        <p>
+            Pokój: {{ reservation.room_number }}<br>
+            Od: {{ reservation.check_in }}<br>
+            Do: {{ reservation.check_out }}
+        </p>
+        <p>
+            {% if reservation.review_text %}
+                <strong>Twoja opinia:</strong> {{ reservation.review_text }}<br>
+                <strong>Ocena:</strong> {{ reservation.rating }}
+            {% else %}
+                <strong>Nie wystawiono opinii.</strong>
+            {% endif %}
+        </p>
+        {% if not reservation.review_text %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="hidden" name="reservation_id" value="{{ reservation.id }}">
+            <button type="submit">Dodaj opinię</button>
+        </form>
+        {% endif %}
+        <hr>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -7,12 +7,12 @@
 </head>
 <body>
     <nav>
-        <a href="/">Rezerwacje Hoteli</a> |
+        <a href="/">Rezerwacje Hoteli</a>
         {% if user.is_authenticated %}
-            <a href="{% url 'my_reservations' %}">Moje rezerwacje</a> |
+            <a href="{% url 'my_reservations' %}">Moje rezerwacje</a>
             <a href="/accounts/logout/">Wyloguj</a>
         {% else %}
-            <a href="/accounts/login/">Zaloguj</a> |
+            <a href="/accounts/login/">Zaloguj</a>
             <a href="/accounts/signup/">Zarejestruj</a>
         {% endif %}
     </nav>
