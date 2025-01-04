@@ -8,7 +8,11 @@
         <img src="{{ hotel.image.url }}" alt="{{ hotel.name }}">
         <h3>{{ hotel.name }}</h3>
         <p>{{ hotel.description }}</p>
-        <p>Cena: {{ hotel.price_per_night }} zł/doba</p>
+        {% if hotel.promo %}
+            <p style="color:red">Cena promocyjna: {{ hotel.sale_price }} zł/doba</p>
+        {% else %}
+            <p>Cena: {{ hotel.price_per_night }} zł/doba</p>
+        {% endif %}
         <a href="{% url 'reserve_hotel' hotel.id %}">Zarezerwuj</a>
         <a href="{% url 'hotel_detail' hotel.pk %}">Zobacz szczegóły</a>
         <hr>

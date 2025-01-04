@@ -13,7 +13,8 @@ class Hotel(models.Model):
     rating = models.FloatField(default=0.0)
     address = models.CharField(max_length=255, null=True, blank=True)
     map = models.URLField(blank=True, null=True)
-
+    sale_price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+    promo = models.BooleanField(default=False)
     def __str__(self):
         return self.name
 

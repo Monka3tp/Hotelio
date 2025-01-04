@@ -1,3 +1,4 @@
+from django.db.models import F
 from django.shortcuts import render, get_object_or_404, redirect
 
 from .forms import ReviewForm
@@ -7,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 
 
 def hotel_list(request):
-    hotels = Hotel.objects.all()
+    hotels = Hotel.objects.all().order_by(F('promo').desc(), 'name')
     return render(request, 'hotels/hotel_list.html', {'hotels': hotels})
 
 @login_required
