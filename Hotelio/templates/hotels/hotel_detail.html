@@ -1,10 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block content %}
+<h1>{{ hotel.name }}</h1>
+<div>
+    <div>
+        <img src="{{ hotel.image.url }}" alt="{{ hotel.name }}">
+    </div>
+    <div>
+        <p>Opis: {{ hotel.description }}</p>
+        <p>Adres: {{ hotel.address }}</p>
+        <p>Cena za noc: {{ hotel.price_per_night }} zł</p>
+        <p>Ocena: {{ hotel.rating }}/10</p>
+        <p>Udogodnienia: {{ hotel.amenities }}</p>
+        {% if hotel.map %}
+            <a href="{{ hotel.map }}" target="_blank">Pokaż na mapie</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

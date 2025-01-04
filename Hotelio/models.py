@@ -7,12 +7,12 @@ class Hotel(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     price_per_night = models.DecimalField(max_digits=8, decimal_places=2)
-    image = models.ImageField(upload_to='hotel_images/', default='hotel_images/hotelrelax.jpeg')
+    image = models.ImageField(upload_to='media/hotel_images', default='media/hotel_images/hotelrelax.jpeg')
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     amenities = models.TextField(default="brak udogodnień")
     rating = models.FloatField(default=0.0)
     address = models.CharField(max_length=255, null=True, blank=True)
-    map_url = models.URLField(blank=True, null=True)
+    map = models.URLField(blank=True, null=True)
 
     def __str__(self):
         return self.name

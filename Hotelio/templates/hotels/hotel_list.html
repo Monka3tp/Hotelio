@@ -10,6 +10,7 @@
         <p>{{ hotel.description }}</p>
         <p>Cena: {{ hotel.price_per_night }} zł/doba</p>
         <a href="{% url 'reserve_hotel' hotel.id %}">Zarezerwuj</a>
+        <a href="{% url 'hotel_detail' hotel.pk %}">Zobacz szczegóły</a>
         <hr>
     </div>
     {% endfor %}
