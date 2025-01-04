@@ -46,3 +46,7 @@ def my_reservations(request):
         'form': form,
     }
     return render(request, 'hotels/my_reservations.html', context)
+
+def hotel_detail(request, pk):
+    hotel = get_object_or_404(Hotel, pk=pk)
+    return render(request, 'hotels/hotel_detail.html', {'hotel': hotel})
