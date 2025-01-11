@@ -7,6 +7,7 @@ class Hotel(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     price_per_night = models.DecimalField(max_digits=8, decimal_places=2)
+    city = models.CharField(max_length=100, null=True, blank=True)
     image = models.ImageField(upload_to='media/hotel_images', default='media/hotel_images/hotelrelax.jpeg')
     image2 = models.ImageField(upload_to='media/hotel_images', default='media/hotel_images/hotelrelax.jpeg')
     image3 = models.ImageField(upload_to='media/hotel_images', default='media/hotel_images/hotelrelax.jpeg')
