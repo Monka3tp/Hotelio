@@ -54,4 +54,6 @@ def my_reservations(request):
 
 def hotel_detail(request, pk):
     hotel = get_object_or_404(Hotel, pk=pk)
-    return render(request, 'hotels/hotel_detail.html', {'hotel': hotel})
+    reviews = hotel.reservations.exclude(
+        user=request.user) if request.user.is_authenticated else hotel.reservations.all()
+    return render(request, 'hotels/hotel_detail.html', {'hotel': hotel, 'reviews': reviews})

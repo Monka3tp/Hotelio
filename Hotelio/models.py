@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render
+from django.utils.timezone import now
 
 
 class Hotel(models.Model):
@@ -23,7 +24,7 @@ class Hotel(models.Model):
         return self.name
 
 class Reservation(models.Model):
-    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
+    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, related_name='reservations')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     check_in = models.DateField()
     check_out = models.DateField()
@@ -34,3 +35,10 @@ class Reservation(models.Model):
     def __str__(self):
         return f"{self.user.username} - {self.hotel.name}"
 
+
+class Review(models.Model):
+    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, related_name='reviews')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    review_text = models.TextField()
+    rating = models.IntegerField()
+    created_at = models.DateTimeField(default=now)
