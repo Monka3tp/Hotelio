@@ -10,24 +10,61 @@
                 {% csrf_token %}
                 <div class="mb-3">
                     <label for="check_in" class="form-label">Data zameldowania:</label>
-                    <input type="date" name="check_in" class="form-control" required>
+                    <input type="date" name="check_in" id="check_in" class="form-control" required>
                 </div>
                 <div class="mb-3">
                     <label for="check_out" class="form-label">Data wymeldowania:</label>
-                    <input type="date" name="check_out" class="form-control" required>
+                    <input type="date" name="check_out" id="check_out" class="form-control" required>
                 </div>
                 <div class="mb-3">
                     <label for="guests" class="form-label">Liczba gości:</label>
-                    <input type="number" name="guests" min="1" class="form-control" required>
+                    <input type="number" name="guests" id="guests" min="1" class="form-control" required>
                 </div>
                 <div class="mb-3 form-check">
                     <input type="checkbox" class="form-check-input" id="breakfast" name="breakfast">
                     <label class="form-check-label" for="breakfast">Śniadanie</label>
                 </div>
-                <div class="price">Całkowity koszt: 130 zł</div>
+                <div class="price">
+                    <strong>Całkowity koszt:</strong>
+                    <span id="total_price">0</span>zł
+                </div>
                 <button type="submit" class="btn btn-success w-100">Zarezerwuj</button>
             </form>
         </div>
     </div>
 </div>
+<script>
+    const pricePerNight = {{ hotel.price_per_night }};
+    const breakfastPrice = 20;
+
+    const checkInInput = document.getElementById('check_in');
+    const checkOutInput = document.getElementById('check_out');
+    const breakfastCheckbox = document.getElementById('breakfast');
+    const totalPriceElement = document.getElementById('total_price');
+
+    function calculateDaysDifference(checkIn, checkOut) {
+        const startDate = new Date(checkIn);
+        const endDate = new Date(checkOut);
+        const timeDifference = endDate - startDate;
+        return timeDifference > 0 ? timeDifference / (1000 * 60 * 60 * 24) : 0;
+    }
+
+    function updatePrice() {
+        const checkInDate = checkInInput.value;
+        const checkOutDate = checkOutInput.value;
+        const days = calculateDaysDifference(checkInDate, checkOutDate);
+        const includeBreakfast = breakfastCheckbox.checked;
+
+        let totalPrice = days * pricePerNight;
+        if (includeBreakfast) {
+            totalPrice += days * breakfastPrice;
+        }
+
+        totalPriceElement.textContent = totalPrice;
+    }
+
+    checkInInput.addEventListener('change', updatePrice);
+    checkOutInput.addEventListener('change', updatePrice);
+    breakfastCheckbox.addEventListener('change', updatePrice);
+</script>
 {% endblock %}
