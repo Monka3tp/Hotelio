@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container d-flex flex-column justify-content-center align-items-center" style="height: 100vh;">
+    <h1 class="mb-4" style="color: #0056b3; margin-top: -200px;">Wylogowano pomyślnie</h1>
+    <a href="{% url 'login' %}" class="btn btn-primary" style="border-radius: 5px;">Zaloguj się ponownie</a>
+</div>
+{% endblock %}
