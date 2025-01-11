@@ -2,6 +2,8 @@
 
 {% block content %}
 <h1>{{ hotel.name }}</h1>
+
+{# Karuzela zdjęć#}
 <div>
     <div id="hotelCarousel" class="carousel slide" data-bs-ride="carousel" style="max-width: 800px; margin: auto;">
         <div class="carousel-indicators">
@@ -36,6 +38,7 @@
         </button>
     </div>
 
+    {#Informacje dot. hotelu#}
     <div class="mt-4">
         <p>Opis: {{ hotel.description }}</p>
         <p>Adres: {{ hotel.address }}</p>

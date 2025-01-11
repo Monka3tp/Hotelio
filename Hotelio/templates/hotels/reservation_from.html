@@ -6,6 +6,8 @@
     <div class="center-container" style="margin-top: -120px;">
         <div class="card">
             <h2 class="text-center">{{ hotel.name }}</h2>
+
+            {#Formularz rezerwacji#}
             <form method="POST">
                 {% csrf_token %}
                 <div class="mb-3">
@@ -33,6 +35,8 @@
         </div>
     </div>
 </div>
+
+{#    Obliczanie kosztów#}
 <script>
     const pricePerNight = {{ hotel.price_per_night }};
     const breakfastPrice = 20;
