@@ -1,22 +1,63 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Lista Hoteli</h1>
-<div>
-    {% for hotel in hotels %}
-    <div>
-        <img src="{{ hotel.image.url }}" alt="{{ hotel.name }}">
-        <h3>{{ hotel.name }}</h3>
-        <p>{{ hotel.description }}</p>
-        {% if hotel.promo %}
-            <p style="color:red">Cena promocyjna: {{ hotel.sale_price }} zł/doba</p>
-        {% else %}
-            <p>Cena: {{ hotel.price_per_night }} zł/doba</p>
-        {% endif %}
-        <a href="{% url 'reserve_hotel' hotel.id %}">Zarezerwuj</a>
-        <a href="{% url 'hotel_detail' hotel.pk %}">Zobacz szczegóły</a>
-        <hr>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Znajdź z nami swoje miejsce na Dolnym Śląsku!</h1>
+    <div class="d-flex justify-content-between align-items-center">
+        <h5 class="text-start text-muted mb-4">Lista Hoteli</h5>
+        <select class="form-select" style="width: auto; border-radius: 5px; margin-right: 20px; margin-bottom: 10px">
+            <option selected disabled>Filtruj</option>
+            <option value="price_asc">Cena rosnąco</option>
+            <option value="price_desc">Cena malejąco</option>
+            <option value="promo">Tylko promocyjne</option>
+            <option value="rating">Najwyżej oceniane</option>
+        </select>
     </div>
-    {% endfor %}
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for hotel in hotels %}
+        <div class="col">
+            <div class="card h-100">
+                <img src="{{ hotel.image.url }}" class="card-img-top" alt="{{ hotel.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ hotel.name }}</h5>
+                    <p class="card-text description" style="max-height: 4.5em; overflow: hidden; line-height: 1.5;">
+                        {{ hotel.description }}
+                    </p>
+                    <button class="btn btn-link p-0 toggle-description" style="text-decoration: none; font-size: 0.9rem;">Pokaż więcej</button>
+                    {% if hotel.promo %}
+                        <p class="text-danger"><strong>Cena promocyjna:</strong> {{ hotel.sale_price }} zł/doba</p>
+                    {% else %}
+                        <p><strong>Cena:</strong> {{ hotel.price_per_night }} zł/doba</p>
+                    {% endif %}
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                    <a href="{% url 'reserve_hotel' hotel.id %}" class="btn btn-primary">Zarezerwuj</a>
+                    <a href="{% url 'hotel_detail' hotel.pk %}" class="btn btn-outline-secondary">Zobacz szczegóły</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const toggles = document.querySelectorAll('.toggle-description');
+
+        toggles.forEach(toggle => {
+            toggle.addEventListener('click', function () {
+                const description = this.previousElementSibling;
+
+                if (description.style.maxHeight === 'none') {
+                    description.style.maxHeight = '4.5em';
+                    this.textContent = 'Pokaż więcej';
+                } else {
+                    description.style.maxHeight = 'none';
+                    this.textContent = 'Pokaż mniej';
+                }
+            });
+        });
+    });
+</script>
+
 {% endblock %}
