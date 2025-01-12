@@ -41,4 +41,3 @@ class Review(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     review_text = models.TextField()
     rating = models.IntegerField()
-    created_at = models.DateTimeField(default=now)
