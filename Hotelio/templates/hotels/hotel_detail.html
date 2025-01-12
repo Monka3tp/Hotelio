@@ -50,6 +50,19 @@
                 Pokaż na mapie
             </a>
         {% endif %}
+               <h2>Opinie innych użytkowników</h2>
+        {% if reviews %}
+            {% for review in reviews %}
+                <div>
+                    <p>Użytkownik: <strong>{{ review.user.username }}</strong></p>
+                    <p>Ocena: {{ review.rating|default:"1" }}/5</p>
+                    <p>Opinia: {{ review.review_text|default:"Brak opinii" }}</p>
+                </div>
+                <hr>
+            {% endfor %}
+        {% else %}
+            <p>Brak opinii od innych użytkowników.</p>
+        {% endif %}
         </div>
     </div>
 
