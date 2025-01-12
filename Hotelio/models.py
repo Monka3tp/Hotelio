@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render
 from django.utils.timezone import now
+from django.contrib.auth.models import AbstractUser
 
 
 class Hotel(models.Model):
@@ -41,3 +42,8 @@ class Review(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     review_text = models.TextField()
     rating = models.IntegerField()
+
+
+
+# class CustomUser(AbstractUser):
+#     date_of_birth = models.DateField(null=True, blank=True)
