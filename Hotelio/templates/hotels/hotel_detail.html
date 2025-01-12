@@ -1,50 +1,61 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{{ hotel.name }}</h1>
-<div>
-    <div id="hotelCarousel" class="carousel slide" data-bs-ride="carousel" style="max-width: 800px; margin: auto;">
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#hotelCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#hotelCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#hotelCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-            <button type="button" data-bs-target="#hotelCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">{{ hotel.name }}</h1>
+    <div class="row">
+        <!-- Carousel Section -->
+        <div class="col-md-6">
+            <div id="hotelCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#hotelCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#hotelCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#hotelCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#hotelCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="{{ hotel.image.url }}" class="d-block w-100" alt="Zdjęcie hotelu 1" style="border-radius: 8px;">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{{ hotel.image2.url }}" class="d-block w-100" alt="Zdjęcie hotelu 2" style="border-radius: 8px;">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{{ hotel.image3.url }}" class="d-block w-100" alt="Zdjęcie hotelu 3" style="border-radius: 8px;">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{{ hotel.image4.url }}" class="d-block w-100" alt="Zdjęcie hotelu 4" style="border-radius: 8px;">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#hotelCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Poprzedni</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#hotelCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Następny</span>
+                </button>
+            </div>
         </div>
 
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="{{ hotel.image.url }}" class="d-block w-100" alt="Zdjęcie hotelu 1" style="border-radius: 8px;">
-            </div>
-            <div class="carousel-item">
-                <img src="{{ hotel.image2.url }}" class="d-block w-100" alt="Zdjęcie hotelu 2" style="border-radius: 8px;">
-            </div>
-            <div class="carousel-item">
-                <img src="{{ hotel.image3.url }}" class="d-block w-100" alt="Zdjęcie hotelu 3" style="border-radius: 8px;">
-            </div>
-            <div class="carousel-item">
-                <img src="{{ hotel.image4.url }}" class="d-block w-100" alt="Zdjęcie hotelu 3" style="border-radius: 8px;">
-            </div>
+        <!-- Hotel Information Section -->
+        <div class="col-md-6">
+            <p><strong>Opis:</strong> {{ hotel.description }}</p>
+            <p><strong>Adres:</strong> {{ hotel.address }}</p>
+            <p><strong>Cena za noc:</strong> {{ hotel.price_per_night }} zł</p>
+            <p><strong>Ocena:</strong> {{ hotel.rating }}/10</p>
+            <p><strong>Udogodnienia:</strong> {{ hotel.amenities }}</p>
+        {% if hotel.map %}
+            <a href="{{ hotel.map }}" target="_blank" style="font-weight: bold; color: #007bff; text-decoration: none;">
+                Pokaż na mapie
+            </a>
+        {% endif %}
         </div>
-
-        <button class="carousel-control-prev" type="button" data-bs-target="#hotelCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Poprzedni</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#hotelCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Następny</span>
-        </button>
     </div>
 
-    <div class="mt-4">
-        <p>Opis: {{ hotel.description }}</p>
-        <p>Adres: {{ hotel.address }}</p>
-        <p>Cena za noc: {{ hotel.price_per_night }} zł</p>
-        <p>Ocena: {{ hotel.rating }}/10</p>
-        <p>Udogodnienia: {{ hotel.amenities }}</p>
-        {% if hotel.map %}
-            <a href="{{ hotel.map }}" target="_blank">Pokaż na mapie</a>
-        {% endif %}
+    <!-- Reservation Button -->
+    <div class="text-center mt-4">
+        <a href="{% url 'reserve_hotel' hotel.id %}" class="btn btn-primary btn-lg">Zarezerwuj</a>
     </div>
 </div>
 {% endblock %}
