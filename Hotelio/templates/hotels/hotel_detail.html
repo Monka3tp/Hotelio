@@ -15,16 +15,16 @@
                 </div>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="{{ hotel.image.url }}" class="d-block w-100" alt="Zdjęcie hotelu 1" style="border-radius: 8px;">
+                        <img src="{{ hotel.image.url }}" class="d-block w-100 rounded" alt="Zdjęcie hotelu 1">
                     </div>
                     <div class="carousel-item">
-                        <img src="{{ hotel.image2.url }}" class="d-block w-100" alt="Zdjęcie hotelu 2" style="border-radius: 8px;">
+                        <img src="{{ hotel.image2.url }}" class="d-block w-100 rounded" alt="Zdjęcie hotelu 2">
                     </div>
                     <div class="carousel-item">
-                        <img src="{{ hotel.image3.url }}" class="d-block w-100" alt="Zdjęcie hotelu 3" style="border-radius: 8px;">
+                        <img src="{{ hotel.image3.url }}" class="d-block w-100 rounded" alt="Zdjęcie hotelu 3">
                     </div>
                     <div class="carousel-item">
-                        <img src="{{ hotel.image4.url }}" class="d-block w-100" alt="Zdjęcie hotelu 4" style="border-radius: 8px;">
+                        <img src="{{ hotel.image4.url }}" class="d-block w-100 rounded" alt="Zdjęcie hotelu 4">
                     </div>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#hotelCarousel" data-bs-slide="prev">
@@ -41,16 +41,26 @@
         <!-- Hotel Information Section -->
         <div class="col-md-6">
             <p><strong>Opis:</strong> {{ hotel.description }}</p>
-            <p><strong>Adres:</strong> {{ hotel.address }}</p>
-            <p><strong>Cena za noc:</strong> {{ hotel.price_per_night }} zł</p>
-            <p><strong>Ocena:</strong> {{ hotel.rating }}/10</p>
-            <p><strong>Udogodnienia:</strong> {{ hotel.amenities }}</p>
-        {% if hotel.map %}
-            <a href="{{ hotel.map }}" target="_blank" style="font-weight: bold; color: #007bff; text-decoration: none;">
-                Pokaż na mapie
-            </a>
-        {% endif %}
-               <h2>Opinie innych użytkowników</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Udogodnienia:</strong> {{ hotel.amenities }}</p>
+                    <p><strong>Koszt:</strong> {{ hotel.price_per_night }} zł</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Adres:</strong> {{ hotel.address }}</p>
+                    {% if hotel.map %}
+                    <a href="{{ hotel.map }}" target="_blank" style="font-weight: bold; color: #007bff; text-decoration: none;">
+                        Pokaż na mapie
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Reviews Section -->
+    <div class="mt-4">
+        <h2>Opinie i ocena</h2>
         {% if reviews %}
             {% for review in reviews %}
                 <div>
@@ -63,7 +73,6 @@
         {% else %}
             <p>Brak opinii od innych użytkowników.</p>
         {% endif %}
-        </div>
     </div>
 
     <!-- Reservation Button -->

@@ -8,7 +8,7 @@
 
         {# Nowy formularz filtrowania zintegrowany z listą rozwijaną #}
         <form method="get" class="d-flex align-items-center">
-            <select name="city" id="city" class="form-select me-2" style="width: auto; border-radius: 5px; margin-bottom: 10px;" onchange="this.form.submit();">
+            <select name="city" id="city" class="form-select me-3" style="width: auto; border-radius: 5px; margin-bottom: 10px;" onchange="this.form.submit();">
                 <option value="">Wszystkie miasta</option>
                 {% for city in cities %}
                     <option value="{{ city }}" {% if request.GET.city == city %}selected{% endif %}>{{ city }}</option>
