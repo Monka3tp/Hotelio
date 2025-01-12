@@ -8,8 +8,12 @@ from django.contrib.auth.decorators import login_required
 
 
 def hotel_list(request):
-    hotels = Hotel.objects.all().order_by(F('promo').desc(), 'name')
-    return render(request, 'hotels/hotel_list.html', {'hotels': hotels})
+    city = request.GET.get('city', '')
+    hotels = Hotel.objects.filter(city=city) if city else Hotel.objects.all()
+    hotels = hotels.order_by(F('promo').desc(), 'name')
+
+    cities = Hotel.objects.values_list('city', flat=True).distinct()
+    return render(request, 'hotels/hotel_list.html', {'hotels': hotels, 'cities': cities})
 
 @login_required
 def reserve_hotel(request, hotel_id):
@@ -50,4 +54,6 @@ def my_reservations(request):
 
 def hotel_detail(request, pk):
     hotel = get_object_or_404(Hotel, pk=pk)
-    return render(request, 'hotels/hotel_detail.html', {'hotel': hotel})
+    reviews = hotel.reservations.exclude(
+        user=request.user) if request.user.is_authenticated else hotel.reservations.all()
+    return render(request, 'hotels/hotel_detail.html', {'hotel': hotel, 'reviews': reviews})

@@ -128,6 +128,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-LOGIN_REDIRECT_URL = '/my-reservations/'
+LOGIN_REDIRECT_URL = 'hotel_list'
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
