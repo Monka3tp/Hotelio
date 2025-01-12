@@ -1,22 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="card mx-auto " style="max-width: 400px; color: white; border-radius: 8px;">
+<div class="card mx-auto mt-5 p-4" style="max-width: 400px; color: white; border-radius: 8px;">
     <h2 class="text-center mb-4">Rejestracja</h2>
 
-    <form method="POST">
+    <form id="signupForm" method="POST">
         {% csrf_token %}
         <div class="mb-3">
             <label for="id_username" class="form-label">Nazwa użytkownika:</label>
-            <input type="text" name="username" id="id_username" class="form-control" placeholder="Wprowadź nazwę użytkownika">
+            <input type="text" name="username" id="id_username" class="form-control" placeholder="Wprowadź nazwę użytkownika" required>
         </div>
         <div class="mb-3">
             <label for="id_password1" class="form-label">Hasło:</label>
-            <input type="password" name="password1" id="id_password1" class="form-control" placeholder="Wprowadź hasło">
+            <input type="password" name="password1" id="id_password1" class="form-control" placeholder="Wprowadź hasło" required>
         </div>
         <div class="mb-3">
             <label for="id_password2" class="form-label">Powtórz hasło:</label>
-            <input type="password" name="password2" id="id_password2" class="form-control" placeholder="Powtórz hasło">
+            <input type="password" name="password2" id="id_password2" class="form-control" placeholder="Powtórz hasło" required>
         </div>
         <button type="submit" class="btn btn-primary w-100">Zarejestruj się</button>
     </form>
@@ -25,4 +25,56 @@
         Masz już konto? <a href="{% url 'login' %}" style="color: #00aced; text-decoration: none;">Zaloguj się</a>
     </p>
 </div>
+
+<script>
+    document.getElementById('signupForm').addEventListener('submit', async function(event) {
+        event.preventDefault(); // Zatrzymaj przesyłanie formularza
+
+        const username = document.getElementById('id_username').value;
+        const password = document.getElementById('id_password1').value;
+        const confirmPassword = document.getElementById('id_password2').value;
+
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
+        let errors = [];
+
+        // Sprawdzenie zajętości nazwy użytkownika
+        try {
+            const response = await fetch(`/check-username/${username}/`);
+            if (!response.ok) throw new Error("Problem z serwerem");
+
+            const usernameStatus = await response.text();
+
+            if (usernameStatus === "exists") {
+                errors.push("- Nazwa użytkownika jest zajęta.");
+            }
+        } catch (err) {
+            errors.push("Ta nazwa użytkownika jest zajęta!");
+        }
+
+        // Walidacja hasła
+        if (!passwordRegex.test(password)) {
+            errors.push(
+                "- Hasło musi zawierać:\n" +
+                "  - małą literę\n" +
+                "  - wielką literę\n" +
+                "  - znak specjalny\n" +
+                "  - co najmniej 8 znaków."
+            );
+        }
+
+        // Sprawdzenie zgodności haseł
+        if (password !== confirmPassword) {
+            errors.push("- Hasła nie są zgodne.");
+        }
+
+        // Wyświetlanie błędów
+        if (errors.length > 0) {
+            alert(errors.join("\n"));
+        } else {
+            this.submit();
+        }
+    });
+</script>
+
+
 {% endblock %}

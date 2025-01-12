@@ -57,3 +57,7 @@ def hotel_detail(request, pk):
     reviews = hotel.reservations.exclude(
         user=request.user) if request.user.is_authenticated else hotel.reservations.all()
     return render(request, 'hotels/hotel_detail.html', {'hotel': hotel, 'reviews': reviews})
+
+@login_required
+def my_profile(request):
+    return render(request, 'hotels/my_profile.html', {'username': request.user.username})
