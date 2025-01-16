@@ -21,8 +21,10 @@ class Hotel(models.Model):
     map = models.URLField(blank=True, null=True)
     sale_price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
     promo = models.BooleanField(default=False)
+
     def __str__(self):
         return self.name
+
 
 class Reservation(models.Model):
     hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, related_name='reservations')
@@ -43,7 +45,3 @@ class Review(models.Model):
     review_text = models.TextField()
     rating = models.IntegerField()
 
-
-
-# class CustomUser(AbstractUser):
-#     date_of_birth = models.DateField(null=True, blank=True)

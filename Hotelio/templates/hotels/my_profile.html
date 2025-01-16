@@ -32,6 +32,7 @@ body::before {
 }
 </style>
 
+{#Mój profil#}
 <div class="container mt-5">
     <div class="card shadow-lg mx-auto" style="max-width: 800px; border-radius: 10px; background-color: #f2f2f2;">
         <div class="card-body p-5">
@@ -41,13 +42,6 @@ body::before {
                 <div class="col-md-6">
                     <h5 class="mb-3" style="color: black;"><strong>Informacje:</strong></h5>
                     <p class="mb-1" style="color: black;"><strong>Imię i nazwisko:</strong> {{ user.first_name }} {{ user.last_name }}</p>
-                    <p class="mb-1" style="color: black;"><strong>Data urodzenia:</strong>
-                        {% if user.date_of_birth %}
-                            {{ user.date_of_birth|date:"d-m-Y" }}
-                        {% else %}
-                            Nie podano
-                        {% endif %}
-                    </p>
                     <p style="color: black;"><strong>Mail:</strong> {{ user.email }}</p>
                 </div>
 

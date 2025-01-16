@@ -4,7 +4,7 @@
 <div class="container mt-5">
     <h1 class="text-center mb-4">{{ hotel.name }}</h1>
     <div class="row">
-        <!-- Carousel Section -->
+            {#Karuzela zdjęć#}
         <div class="col-md-6">
             <div id="hotelCarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-indicators">
@@ -38,7 +38,7 @@
             </div>
         </div>
 
-        <!-- Hotel Information Section -->
+        {#Informacje o hotelu#}
         <div class="col-md-6">
             <p><strong>Opis:</strong> {{ hotel.description }}</p>
             <div class="row">
@@ -58,7 +58,7 @@
         </div>
     </div>
 
-    <!-- User Reviews Section -->
+        {#Opinie innyhc użthkowników#}
     <div class="mt-4">
         <h2>Opinie i ocena</h2>
         {% if reviews %}
@@ -74,8 +74,6 @@
             <p>Brak opinii od innych użytkowników.</p>
         {% endif %}
     </div>
-
-    <!-- Reservation Button -->
     <div class="text-center mt-4">
         <a href="{% url 'reserve_hotel' hotel.id %}" class="btn btn-primary btn-lg">Zarezerwuj</a>
     </div>

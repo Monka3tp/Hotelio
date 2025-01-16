@@ -4,17 +4,20 @@
 <div class="container mt-5">
     <h1 class="text-center mb-4">Moje rezerwacje</h1>
     <div class="row justify-content-start g-4">
+
+        {#Dokonane rezerwacje#}
         {% for reservation in reservations %}
         <div class="col-12 col-md-6 col-lg-4">
             <div class="card h-100 border-light shadow-sm" style="border-radius: 10px;">
                 <div class="card-body">
                     <h5 class="fw-bold mb-3">{{ reservation.hotel }}</h5>
                     <p class="mb-2">
-                        <strong>Pokój:</strong> {{ reservation.room_number }}<br>
+{#                        <strong>Pokój:</strong> {{ reservation.room_number }}<br>#}
                         <strong>Od:</strong> {{ reservation.check_in }}<br>
                         <strong>Do:</strong> {{ reservation.check_out }}
                     </p>
                     <hr>
+                    {#Możliwość dodania opinii#}
                     <div class="mb-3">
                         {% if reservation.review_text %}
                             <p><strong>Twoja opinia:</strong> {{ reservation.review_text }}</p>
