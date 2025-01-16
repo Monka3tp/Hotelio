@@ -19,10 +19,6 @@
             <input type="email" name="email" id="id_email" class="form-control" placeholder="Wprowadź adres e-mail" required>
         </div>
         <div class="mb-3">
-            <label for="id_date_of_birth" class="form-label">Data urodzenia:</label>
-            <input type="date" name="date_of_birth" id="id_date_of_birth" class="form-control" required>
-        </div>
-        <div class="mb-3">
             <label for="id_username" class="form-label">Nazwa użytkownika:</label>
             <input type="text" name="username" id="id_username" class="form-control" placeholder="Wprowadź nazwę użytkownika" required>
         </div>
@@ -53,19 +49,6 @@
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
         let errors = [];
 
-        {#// Sprawdzenie zajętości nazwy użytkownika#}
-        {#try {#}
-        {#    const response = await fetch(`/check-username/${username}/`);#}
-        {#    if (!response.ok) throw new Error("Problem z serwerem");#}
-        {##}
-        {#    const usernameStatus = await response.text();#}
-        {##}
-        {#    if (usernameStatus === "exists") {#}
-        {#        errors.push("- Nazwa użytkownika jest zajęta.");#}
-        {#    }#}
-        {#} catch (err) {#}
-        {#    errors.push("Ta nazwa użytkownika jest zajęta!");#}
-        {#}#}
 
         {#Walidacja hasła#}
         if (!passwordRegex.test(password)) {

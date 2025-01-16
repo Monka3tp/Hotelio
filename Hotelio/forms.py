@@ -26,6 +26,7 @@ class ReviewForm(forms.Form):
         required=True
     )
 
+
 class CustomUserCreationForm(UserCreationForm):
     # Dodanie nowych pól do formularza
     first_name = forms.CharField(max_length=30, required=True, help_text="Wprowadź swoje imię.")
