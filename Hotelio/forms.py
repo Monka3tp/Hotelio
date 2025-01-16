@@ -28,7 +28,6 @@ class ReviewForm(forms.Form):
 
 
 class CustomUserCreationForm(UserCreationForm):
-    # Dodanie nowych pól do formularza
     first_name = forms.CharField(max_length=30, required=True, help_text="Wprowadź swoje imię.")
     last_name = forms.CharField(max_length=30, required=True, help_text="Wprowadź swoje nazwisko.")
     email = forms.EmailField(max_length=254, required=True, help_text="Wprowadź swój adres e-mail.")
@@ -39,7 +38,6 @@ class CustomUserCreationForm(UserCreationForm):
         fields = ['username', 'first_name', 'last_name', 'email', 'date_of_birth', 'password1', 'password2']
 
     def save(self, commit=True):
-        # Nadpisanie metody save() dla zapisu dodatkowych pól
         user = super().save(commit=False)
         user.first_name = self.cleaned_data['first_name']
         user.last_name = self.cleaned_data['last_name']

@@ -12,12 +12,11 @@
                 <div class="card-body">
                     <h5 class="fw-bold mb-3">{{ reservation.hotel }}</h5>
                     <p class="mb-2">
-{#                        <strong>Pokój:</strong> {{ reservation.room_number }}<br>#}
                         <strong>Od:</strong> {{ reservation.check_in }}<br>
                         <strong>Do:</strong> {{ reservation.check_out }}
                     </p>
                     <hr>
-                    {#Możliwość dodania opinii#}
+                    {#Możliwość dodania opinii - jeśli użytkownik dodał opinię, wyśietla się jej treeść oraz ocena#}
                     <div class="mb-3">
                         {% if reservation.review_text %}
                             <p><strong>Twoja opinia:</strong> {{ reservation.review_text }}</p>
@@ -26,6 +25,7 @@
                             <p class="text" style="color: #adb5bd;">Nie wystawiono opinii.</p>
                         {% endif %}
                     </div>
+                 {#Możliwość dodania opinii - formularz jest widoczny jeśli użytkownik NIE dodał opinii, użytkownik wpisuje dane #}
                     {% if not reservation.review_text %}
                     <form method="post" class="mt-3">
                         {% csrf_token %}

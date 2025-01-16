@@ -38,19 +38,18 @@
     </p>
 </div>
 
+
+  {#Walidacja hasła#}
 <script>
     document.getElementById('signupForm').addEventListener('submit', async function(event) {
         event.preventDefault();
 
-        {#const username = document.getElementById('id_username').value;#}
         const password = document.getElementById('id_password1').value;
         const confirmPassword = document.getElementById('id_password2').value;
 
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
         let errors = [];
 
-
-        {#Walidacja hasła#}
         if (!passwordRegex.test(password)) {
             errors.push(
                 "- Hasło musi zawierać:\n" +
